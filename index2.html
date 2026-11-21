@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OMI Kendaraan - Diagram UML</title>
+<style>
+  body { margin:0; font-family: system-ui, sans-serif; background:#f8fafc; color:#0f172a; }
+  header { padding:16px 20px; background:#0f172a; color:#fff; }
+  header h1 { margin:0; font-size:20px; }
+  header p { margin:4px 0 0; font-size:13px; opacity:.8; }
+  main { padding:12px; }
+  #viewer { background:#fff; border:1px solid #e2e8f0; border-radius:8px; min-height:80vh; }
+  #msg { padding:20px; }
+  a.dl { color:#a5b4fc; }
+</style>
+</head>
+<body>
+<header>
+  <h1>OMI Kendaraan - Diagram UML</h1>
+  <p>Use Case, Class, Activity, dan Sequence Diagram &middot;
+     <a class="dl" href="omi-kendaraan-uml-v2-editable.drawio" download>Unduh file .drawio</a></p>
+</header>
+<main>
+  <div id="viewer"><div id="msg">Memuat diagram...</div></div>
+</main>
+
+<script src="https://viewer.diagrams.net/js/viewer-static.min.js"></script>
+<script>
+(async function () {
+  const box = document.getElementById('viewer');
+  try {
+    const res = await fetch('omi-kendaraan-uml-v2-editable.drawio');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const xml = await res.text();
+    const cfg = {
+      highlight: '#6366f1',
+      nav: true,
+      resize: true,
+      toolbar: 'pages zoom layers lightbox',
+      'toolbar-position': 'top',
+      edit: '_blank',
+      xml: xml
+    };
+    box.innerHTML = '';
+    const div = document.createElement('div');
+    div.className = 'mxgraph';
+    div.style.maxWidth = '100%';
+    div.setAttribute('data-mxgraph', JSON.stringify(cfg));
+    box.appendChild(div);
+    GraphViewer.processElements();
+  } catch (e) {
+    box.innerHTML = '<div id="msg">Gagal memuat diagram: ' + e.message +
+      '. Pastikan file omi-kendaraan-uml-v2-editable.drawio ada di folder yang sama dengan index.html.</div>';
+  }
+})();
+</script>
+</body>
+</html>
